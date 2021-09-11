@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:translation_new/component.dart';
 import 'package:translator/translator.dart';
+import 'package:get/get.dart';
 
-bool isLoad = false;
 bool isState = false;
 
 class InputPage extends StatefulWidget {
@@ -48,9 +48,9 @@ class _InputPageState extends State<InputPage> {
       });
     }
 
-    setState(() {
-      isState = false;
-    });
+    // setState(() {
+    //   isState = false;
+    // });
   }
 
   getColorTranslate() async {
@@ -142,20 +142,24 @@ class _InputPageState extends State<InputPage> {
           backgroundColor: Colors.yellow,
           onPressed: () {
             setState(() {
-              isLoad = !isLoad;
+              isState = !isState;
             });
+
+            isState
+                ? Get.updateLocale(Locale(Get.deviceLocale!.languageCode))
+                : Get.updateLocale(Locale('ta', 'TA'));
           },
-          child: isState == false
-              ? Icon(
+          child: isState == true
+              ? Text(
+                  'த',
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                )
+              : Icon(
                   Icons.translate,
                   color: Colors.black,
-                )
-              : Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    backgroundColor: Colors.purple,
-                  ),
                 )),
     );
   }
@@ -183,7 +187,7 @@ class _HomeState extends State<Home> {
               color: Colors.black,
             ),
             title: Text(
-              isLoad == false ? heading[0] : headingTamil[0],
+              heading[0].toString().tr,
               style: kStyle,
             ),
           ),
@@ -196,7 +200,7 @@ class _HomeState extends State<Home> {
                 color: Colors.yellow,
               ),
               title: Text(
-                isLoad == false ? heading[1] : headingTamil[1],
+                heading[1].toString().tr,
                 style: kStyle,
               ),
             ),
@@ -205,7 +209,7 @@ class _HomeState extends State<Home> {
             height: 10,
           ),
           Text(
-            isLoad == false ? heading[3] : headingTamil[3],
+            heading[4].toString().tr,
             style: kStyle,
           ),
           SizedBox(
@@ -237,9 +241,7 @@ class _HomeState extends State<Home> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(30)),
                           child: Text(
-                            isLoad == false
-                                ? petsName[index].toString().toUpperCase()
-                                : petTamil[index].toString().toUpperCase(),
+                            petsName[index].toString().tr,
                             style: kStyle,
                           ),
                         ),
@@ -250,7 +252,7 @@ class _HomeState extends State<Home> {
             height: 10,
           ),
           Text(
-            isLoad == false ? heading[2] : headingTamil[2],
+            heading[3].toString().tr,
             style: kStyle,
           ),
           SizedBox(
@@ -279,9 +281,7 @@ class _HomeState extends State<Home> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(30)),
                           child: Text(
-                            isLoad == false
-                                ? animalsName[index].toString().toUpperCase()
-                                : animalsTamil[index].toString().toUpperCase(),
+                            animalsName[index].toString().tr,
                             style: kStyle,
                           ),
                         ),
@@ -292,7 +292,7 @@ class _HomeState extends State<Home> {
             height: 10,
           ),
           Text(
-            isLoad == false ? heading[4] : headingTamil[4],
+            heading[2].toString().tr,
             style: kStyle,
           ),
           SizedBox(
@@ -319,9 +319,7 @@ class _HomeState extends State<Home> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(30)),
                           child: Text(
-                            isLoad == false
-                                ? colorName[index]
-                                : colorTamil[index],
+                            colorName[index].toString().tr,
                             style: kStyle,
                           ),
                         ),
